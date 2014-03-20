@@ -1,13 +1,29 @@
 {
- "name": "globe-node",
- "description": "Globe middleware",
- "version": "0.9.1",
- "private": true,
- "dependencies": {
-    "ejs"    : "*",
+  "name": "Mongoberry",
+  "description": "Mongoberry website",
+  "version": "0.9.1",
+  "private": true,
+  "dependencies": {
+    "ejs": "*",
     "express": "3.0.6",
-    "redis"  : "0.8.2",
-    "sleep"  : "1.1.1",
+    "redis": "0.8.2",
+    "sleep": "1.1.1",
     "nodemailer": "0.6.0"
-  }
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "4255b40ad6d040673cf92c11f0aa40b05d74e6bb",
+  "main": "mongoberry.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xephoid/mongoberry.git"
+  },
+  "keywords": [
+    "mongodb",
+    "raspberrypi"
+  ],
+  "author": "Zeke Swepson",
+  "license": "BSD"
 }
