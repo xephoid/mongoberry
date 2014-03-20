@@ -37,7 +37,7 @@ app.get("/healthcheck", function(req, res, next) {
 });
 
 app.get("/", function(req, res, next) {
-	  res.render("index");
+	  res.render("comingsoon.html");
 });
 
 app.get("/index.html", function(req, res, next) {
