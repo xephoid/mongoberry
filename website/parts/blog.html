@@ -1,0 +1,66 @@
+<div id="masthead">  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>Blog
+          <p class="lead">Catchy Subtitle Here</p>
+        </h1>
+      </div>
+      <div class="col-md-5">
+        <div class="well well-lg" style="margin-top: 25px"> 
+          <div class="row">
+            <div class="col-sm-12">
+              Ad Space			
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+ 
+</div>
+
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">
+        
+          
+          <!--/stories-->
+		  <div class="row" ng-repeat="entry in entries">
+            <br>
+            <div class="col-md-2 col-sm-3 text-center">
+              <!-- http://m.c.lnkd.licdn.com/mpr/mprx/0__h5DMuj2VT6cg9NiFzviVDgaplZBgvqiF1R8xSmGlkJqsNQS5rX3jFLE38I -->
+              <a class="story-img" href="#"><img src="{{entry.pictureUrl}}" style="width:100px;height:100px" class="img-circle"></a>
+            </div>
+            <div class="col-md-10 col-sm-9">
+              <h3>{{entry.title}}</h3>
+              <div class="row">
+                <div class="col-xs-9">
+                  <p ng-hide="entry.showAll">{{entry.content.substr(0, 265)}}</p>
+                  <p ng-show="entry.showAll">{{entry.content}}</p>
+                  <p class="lead"><button class="btn btn-default" ng-click="entry.showAll = !entry.showAll">Read More</button></p>
+                  <p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+                  <ul class="list-inline"><li><a href="#">2 Days Ago</a></li></ul>
+                  </div>
+                <div class="col-xs-3"></div>
+              </div>
+              <br><br>
+            </div>
+          </div>
+          <hr>
+          
+          <a href="#" class="btn btn-primary pull-right btnNext" ng-show="hasMore" ng-click="getMoreEntries()">More <i class="glyphicon glyphicon-chevron-right"></i></a>
+        </div>
+      </div>
+                                                                                       
+	                                                
+                                                      
+   	</div><!--/col-12-->
+  </div>
+</div>

@@ -14,6 +14,8 @@ class Request {
 	}
 }
 
+$empty_json = "{}";
+
 $req = new Request();
 
 if (!is_null($req->a)) {
@@ -36,25 +38,30 @@ if (!is_null($req->co)) {
 }
 
 if (!is_null($req->fi)) {
-	$filter = $req->fi;
+	$filter = parseJson($req->fi);
 } else {
-	$filter = "{}";
+	$filter = parseJson($empty_json);
 }
 
 if (!is_null($req->up)) {
-	$update = $req->up;
+	$update = parseJson($req->up);
 } else {
-	$update = "{}";
+	$update = parseJson($empty_json);
 }
 
-$document = $_GET["do"];
+if (!is_null($req->do)) {
+	$document = parseJson($req->do, false);
+} else {
+	$document = parseJson($empty_json);
+}
+
 $sort = $_GET["so"];
 $limit = $_GET["li"];
 $fields = $_GET["fs"];
 $upsert = $_GET["us"];
 $multi = $_GET["mu"];
 
-$mongo = new MongoClient("mongodb://bakeneko");
+$mongo = new MongoClient("mongodb://mongoberry01");
 
 $coll = $mongo->$dbName->$cName;
 
@@ -73,8 +80,9 @@ function doFind($coll, $filter, $fields) {
 }
 
 function doSave($coll, $document) {
+	$document->createdAt = new MongoDate();
 	$coll->insert($document);
-	$id = "$id";
+	
 	return $document;
 }
 
@@ -89,17 +97,24 @@ function doUpdate($coll, $filter, $update) {
 	return array("success" => true);
 }
 
+function parseJson($rawJson, $assoc = true) {
+	$json = json_decode($rawJson, $assoc);
+	if (is_null($json)) {
+		error("Invalid json!\n" . $rawJson);
+	}
+	return $json;
+}
 
 $result = "{}";
 try {
 	if ($action == "find") {
-		$result = json_encode(doFind($coll, json_decode($filter, true), $fields));
+		$result = json_encode(doFind($coll, $filter, $fields));
 	} else if ($action == "update") {
-		$result = json_encode(doUpdate($coll, json_decode($filter, true), json_decode($update, true)), JSON_FORCE_OBJECT);
+		$result = json_encode(doUpdate($coll, $filter, $update), JSON_FORCE_OBJECT);
 	} else if ($action == "insert") {
-		$result = json_encode(doSave($coll, json_decode($document)));
+		$result = json_encode(doSave($coll, $document));
 	} else if ($action == "remove") {
-		$result = json_encode(doRemove($coll, json_decode($filter, true)), JSON_FORCE_OBJECT);
+		$result = json_encode(doRemove($coll, $filter), JSON_FORCE_OBJECT);
 	} else {
 		$result = "{error: \"Invalid action\"}";
 	}
@@ -170,6 +185,7 @@ $(function() {
 <body>
 	<div class="header">Response:</div>
 	<pre><code id="json"></code></pre>
+	<div><a href="/">Back</a></div>
 </body>
 </html>
 <?php
