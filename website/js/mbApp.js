@@ -28,6 +28,12 @@ app.controller("BlogCtrl", function($scope, $http) {
 	$scope.entries = [];
 	$http.get("/api?db=blog&co=entries&a=find").success(function(data) {
 		$scope.entries = data;
+		angular.forEach($scope.entries, function(entry) {
+			if (entry.createdAt) {
+				var dt = new Date(entry.createdAt.sec * 1000);
+				entry.date = dt.toDateString();
+			}
+		});
 	});
 });
 

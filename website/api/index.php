@@ -61,7 +61,7 @@ $fields = $_GET["fs"];
 $upsert = $_GET["us"];
 $multi = $_GET["mu"];
 
-$mongo = new MongoClient("mongodb://mongoberry01");
+$mongo = new MongoClient("mongodb://localhost");
 
 $coll = $mongo->$dbName->$cName;
 
@@ -116,7 +116,7 @@ try {
 	} else if ($action == "remove") {
 		$result = json_encode(doRemove($coll, $filter), JSON_FORCE_OBJECT);
 	} else {
-		$result = "{error: \"Invalid action\"}";
+		$result = "{\"error\": \"Invalid action\"}";
 	}
 } catch (Exception $e) {
 	$result = "{\"error\": \"" . $e->getMessage() . "\"}";
